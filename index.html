@@ -1,0 +1,406 @@
+<title>ClickLaundry</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Nunito:wght@400;600;700&display=swap">
+<style>
+  /* Layout: centered single-column, hero-driven landing */
+  :root {
+    --bg: #e6f4fb;
+    --bg-deep: #d0ecf8;
+    --fg: #2a3a4a;
+    --heading: #5cc8f0;
+    --subtitle: #7ad4f5;
+    --accent: #e8556d;
+    --accent-soft: #f07088;
+    --card-bg: rgba(255,255,255,0.35);
+    --lang-text: #5cc8f0;
+    --logo-text: #3a8bb5;
+    --hero-bg: #c4e8f7;
+    --hero-border: rgba(255,255,255,0.6);
+    --illustration-primary: #fff;
+    --illustration-secondary: #b8dff2;
+    --illustration-accent: #7ecce8;
+    --illustration-dark: #4a9fc4;
+    --basket-body: #f5e6d0;
+    --basket-stripe: #e8d4b8;
+    --plant-green: #6aad7a;
+    --plant-pot: #d4a574;
+    --clothes-blue: #a8d8f0;
+    --clothes-light: #d0eaf5;
+    --clothes-denim: #7badc8;
+    --clothes-white: #f0f8fc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1c24;
+      --bg-deep: #142630;
+      --fg: #d8e8f0;
+      --heading: #5cc8f0;
+      --subtitle: #4ab0d8;
+      --accent: #f07088;
+      --accent-soft: #e8556d;
+      --card-bg: rgba(30,50,65,0.6);
+      --lang-text: #5cc8f0;
+      --logo-text: #6ac4e0;
+      --hero-bg: #1a3040;
+      --hero-border: rgba(60,90,110,0.4);
+      --illustration-primary: #e8f0f4;
+      --illustration-secondary: #2a4a5c;
+      --illustration-accent: #3a7a98;
+      --illustration-dark: #1a3a50;
+      --basket-body: #8a7560;
+      --basket-stripe: #6a5a48;
+      --plant-green: #4a8a5a;
+      --plant-pot: #8a6a4a;
+      --clothes-blue: #3a7a9a;
+      --clothes-light: #2a5a72;
+      --clothes-denim: #4a7a90;
+      --clothes-white: #c8dce8;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1c24;
+    --bg-deep: #142630;
+    --fg: #d8e8f0;
+    --heading: #5cc8f0;
+    --subtitle: #4ab0d8;
+    --accent: #f07088;
+    --accent-soft: #e8556d;
+    --card-bg: rgba(30,50,65,0.6);
+    --lang-text: #5cc8f0;
+    --logo-text: #6ac4e0;
+    --hero-bg: #1a3040;
+    --hero-border: rgba(60,90,110,0.4);
+    --illustration-primary: #e8f0f4;
+    --illustration-secondary: #2a4a5c;
+    --illustration-accent: #3a7a98;
+    --illustration-dark: #1a3a50;
+    --basket-body: #8a7560;
+    --basket-stripe: #6a5a48;
+    --plant-green: #4a8a5a;
+    --plant-pot: #8a6a4a;
+    --clothes-blue: #3a7a9a;
+    --clothes-light: #2a5a72;
+    --clothes-denim: #4a7a90;
+    --clothes-white: #c8dce8;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Nunito', 'Segoe UI', sans-serif;
+    margin: 0;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-block: 20px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Language selector */
+  .lang-selector {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--lang-text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 20px;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  .lang-selector:hover {
+    background: var(--card-bg);
+  }
+  .lang-selector svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Logo + Welcome */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .logo-img {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+  }
+
+  .welcome {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(48px, 8vw, 80px);
+    font-weight: 800;
+    color: var(--heading);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 600;
+    color: var(--subtitle);
+    margin-top: 8px;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  .description {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(18px, 3vw, 30px);
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-top: 28px;
+    max-width: 700px;
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+
+  /* Hero illustration */
+  .hero-frame {
+    margin-top: 32px;
+    width: 100%;
+    max-width: 1080px;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 3px solid var(--hero-border);
+    background: var(--hero-bg);
+    aspect-ratio: 16 / 9;
+  }
+  .hero-frame svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .header { gap: 10px; }
+    .logo-img { width: 70px; height: 70px; }
+    .hero-frame { border-radius: 16px; }
+  }
+</style>
+
+<div class="page">
+  <!-- Language selector -->
+  <div class="lang-selector" role="button" tabindex="0" aria-label="Select language">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <ellipse cx="12" cy="12" rx="4" ry="10"/>
+      <path d="M2 12h20"/>
+      <path d="M4.5 6.5h15"/>
+      <path d="M4.5 17.5h15"/>
+    </svg>
+    English
+  </div>
+
+  <!-- Logo + Welcome heading -->
+  <div class="header">
+    <svg class="logo-img" viewBox="0 0 120 130" fill="none">
+      <!-- Phone/tablet body -->
+      <rect x="28" y="10" width="56" height="80" rx="8" fill="var(--illustration-accent)" stroke="var(--illustration-dark)" stroke-width="2"/>
+      <rect x="32" y="18" width="48" height="60" rx="4" fill="var(--illustration-primary)"/>
+      <!-- Washing machine on screen -->
+      <circle cx="56" cy="46" r="18" fill="var(--illustration-secondary)" stroke="var(--illustration-accent)" stroke-width="1.5"/>
+      <circle cx="56" cy="46" r="12" fill="var(--illustration-primary)" stroke="var(--illustration-accent)" stroke-width="1"/>
+      <circle cx="56" cy="46" r="7" fill="var(--illustration-secondary)" opacity="0.5"/>
+      <!-- Control panel dot -->
+      <circle cx="70" cy="32" r="2" fill="var(--illustration-accent)"/>
+      <!-- Home button -->
+      <circle cx="56" cy="84" r="3" fill="var(--illustration-secondary)"/>
+      <!-- Hand/finger pointing -->
+      <path d="M88 55 C85 52, 78 48, 75 50 L70 56" stroke="var(--basket-body)" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <circle cx="70" cy="56" r="4" fill="var(--basket-body)"/>
+      <!-- Bubbles -->
+      <circle cx="38" cy="15" r="4" fill="var(--subtitle)" opacity="0.6"/>
+      <circle cx="30" cy="25" r="3" fill="var(--heading)" opacity="0.5"/>
+      <circle cx="44" cy="8" r="2.5" fill="var(--subtitle)" opacity="0.4"/>
+      <!-- Puzzle piece accent -->
+      <rect x="78" y="14" width="12" height="12" rx="2" fill="var(--heading)" opacity="0.7"/>
+      <rect x="84" y="8" width="8" height="8" rx="2" fill="var(--subtitle)" opacity="0.5"/>
+      <!-- ClickLaundry text -->
+      <text x="56" y="108" text-anchor="middle" font-family="Poppins, sans-serif" font-size="10" font-weight="700" fill="var(--logo-text)">ClickLaundry</text>
+    </svg>
+    <span class="welcome">Welcome!</span>
+  </div>
+
+  <p class="subtitle">Simplify Your Laundry Experience</p>
+
+  <p class="description">Make an order by click and contact with the laundry's owner easily. Enjoy!</p>
+
+  <!-- Hero illustration -->
+  <div class="hero-frame">
+    <svg viewBox="0 0 1080 607" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--hero-bg)"/>
+          <stop offset="100%" stop-color="var(--illustration-secondary)"/>
+        </linearGradient>
+      </defs>
+      <rect width="1080" height="607" fill="url(#bgGrad)"/>
+
+      <!-- Floor shadow -->
+      <ellipse cx="540" cy="530" rx="480" ry="20" fill="var(--illustration-dark)" opacity="0.08"/>
+
+      <!-- ===== LEFT: Clothes rack ===== -->
+      <g>
+        <!-- Rack frame -->
+        <rect x="100" y="100" width="6" height="380" rx="3" fill="var(--illustration-dark)"/>
+        <rect x="260" y="100" width="6" height="380" rx="3" fill="var(--illustration-dark)"/>
+        <rect x="90" y="96" width="186" height="6" rx="3" fill="var(--illustration-dark)"/>
+        <!-- Rack feet -->
+        <rect x="70" y="470" width="70" height="6" rx="3" fill="var(--illustration-dark)"/>
+        <rect x="230" y="470" width="70" height="6" rx="3" fill="var(--illustration-dark)"/>
+        <!-- Hangers + shirts -->
+        <g>
+          <path d="M130 98 L130 108 L115 130 L145 130 Z" fill="var(--clothes-white)" stroke="var(--illustration-accent)" stroke-width="0.5"/>
+          <rect x="112" y="130" width="36" height="100" rx="2" fill="var(--clothes-white)"/>
+          <line x1="130" y1="96" x2="130" y2="100" stroke="var(--illustration-dark)" stroke-width="2"/>
+        </g>
+        <g>
+          <path d="M155 98 L155 108 L140 130 L170 130 Z" fill="var(--clothes-light)" stroke="var(--illustration-accent)" stroke-width="0.5"/>
+          <rect x="137" y="130" width="36" height="110" rx="2" fill="var(--clothes-light)"/>
+          <line x1="155" y1="96" x2="155" y2="100" stroke="var(--illustration-dark)" stroke-width="2"/>
+        </g>
+        <g>
+          <path d="M180 98 L180 108 L165 130 L195 130 Z" fill="var(--clothes-blue)" stroke="var(--illustration-accent)" stroke-width="0.5"/>
+          <rect x="162" y="130" width="36" height="115" rx="2" fill="var(--clothes-blue)"/>
+          <line x1="180" y1="96" x2="180" y2="100" stroke="var(--illustration-dark)" stroke-width="2"/>
+        </g>
+        <g>
+          <path d="M205 98 L205 108 L190 130 L220 130 Z" fill="var(--clothes-white)" stroke="var(--illustration-accent)" stroke-width="0.5"/>
+          <rect x="187" y="130" width="36" height="105" rx="2" fill="var(--clothes-white)"/>
+          <line x1="205" y1="96" x2="205" y2="100" stroke="var(--illustration-dark)" stroke-width="2"/>
+        </g>
+        <g>
+          <path d="M230 98 L230 108 L215 130 L245 130 Z" fill="var(--clothes-light)" stroke="var(--illustration-accent)" stroke-width="0.5"/>
+          <rect x="212" y="130" width="36" height="108" rx="2" fill="var(--clothes-light)"/>
+          <line x1="230" y1="96" x2="230" y2="100" stroke="var(--illustration-dark)" stroke-width="2"/>
+        </g>
+      </g>
+
+      <!-- ===== LEFT: Laundry basket with clothes ===== -->
+      <g>
+        <path d="M100 380 Q100 340, 140 340 L240 340 Q280 340, 280 380 L270 480 L110 480 Z" fill="var(--basket-body)" stroke="var(--basket-stripe)" stroke-width="2"/>
+        <!-- Basket weave lines -->
+        <line x1="115" y1="360" x2="265" y2="360" stroke="var(--basket-stripe)" stroke-width="1.5"/>
+        <line x1="112" y1="380" x2="268" y2="380" stroke="var(--basket-stripe)" stroke-width="1.5"/>
+        <line x1="112" y1="400" x2="268" y2="400" stroke="var(--basket-stripe)" stroke-width="1.5"/>
+        <line x1="112" y1="420" x2="268" y2="420" stroke="var(--basket-stripe)" stroke-width="1.5"/>
+        <line x1="112" y1="440" x2="268" y2="440" stroke="var(--basket-stripe)" stroke-width="1.5"/>
+        <line x1="112" y1="460" x2="268" y2="460" stroke="var(--basket-stripe)" stroke-width="1.5"/>
+        <!-- Overflowing clothes -->
+        <path d="M130 345 Q150 310, 180 340 Q200 320, 220 340 Q240 315, 255 345" fill="var(--clothes-blue)" stroke="none"/>
+        <path d="M140 342 Q155 318, 175 338" fill="var(--clothes-white)" stroke="none"/>
+      </g>
+
+      <!-- ===== LEFT: Folded clothes stack ===== -->
+      <g>
+        <rect x="100" y="430" width="0" height="0"/>
+        <!-- Stack of folded towels on floor -->
+        <rect x="60" y="440" width="80" height="14" rx="3" fill="var(--clothes-blue)"/>
+        <rect x="58" y="426" width="84" height="14" rx="3" fill="var(--clothes-light)"/>
+        <rect x="56" y="412" width="88" height="14" rx="3" fill="var(--clothes-blue)"/>
+        <rect x="54" y="398" width="92" height="14" rx="3" fill="var(--illustration-primary)"/>
+      </g>
+
+      <!-- ===== CENTER: Washing machine ===== -->
+      <g>
+        <!-- Machine body -->
+        <rect x="390" y="120" width="300" height="360" rx="16" fill="var(--illustration-primary)" stroke="var(--illustration-secondary)" stroke-width="3"/>
+        <!-- Top panel -->
+        <rect x="390" y="120" width="300" height="80" rx="16" fill="var(--illustration-primary)"/>
+        <rect x="390" y="184" width="300" height="16" fill="var(--illustration-primary)"/>
+        <line x1="390" y1="200" x2="690" y2="200" stroke="var(--illustration-secondary)" stroke-width="2"/>
+        <!-- Control panel elements -->
+        <circle cx="440" cy="160" r="18" fill="var(--illustration-secondary)" stroke="var(--illustration-accent)" stroke-width="2"/>
+        <line x1="440" y1="148" x2="440" y2="142" stroke="var(--illustration-dark)" stroke-width="2" stroke-linecap="round"/>
+        <!-- Display -->
+        <rect x="490" y="142" width="60" height="28" rx="4" fill="var(--illustration-dark)" opacity="0.15"/>
+        <!-- Buttons -->
+        <circle cx="580" cy="156" r="6" fill="var(--illustration-accent)"/>
+        <circle cx="610" cy="156" r="6" fill="var(--illustration-secondary)"/>
+        <circle cx="640" cy="156" r="6" fill="var(--illustration-secondary)"/>
+        <!-- Door -->
+        <circle cx="540" cy="340" r="110" fill="var(--illustration-secondary)" stroke="var(--illustration-accent)" stroke-width="3"/>
+        <circle cx="540" cy="340" r="90" fill="var(--illustration-primary)" stroke="var(--illustration-accent)" stroke-width="2"/>
+        <circle cx="540" cy="340" r="65" fill="var(--illustration-secondary)" opacity="0.4"/>
+        <!-- Glass reflection -->
+        <path d="M500 290 Q520 280, 530 300" stroke="var(--illustration-primary)" stroke-width="3" fill="none" opacity="0.6" stroke-linecap="round"/>
+        <!-- Door handle -->
+        <rect x="636" y="332" width="16" height="6" rx="3" fill="var(--illustration-accent)"/>
+      </g>
+
+      <!-- ===== RIGHT: Folded clothes stacks ===== -->
+      <g>
+        <!-- Stack 1 (right of machine) -->
+        <rect x="730" y="400" width="100" height="16" rx="4" fill="var(--clothes-blue)"/>
+        <rect x="728" y="384" width="104" height="16" rx="4" fill="var(--clothes-light)"/>
+        <rect x="726" y="368" width="108" height="16" rx="4" fill="var(--clothes-blue)"/>
+        <rect x="724" y="352" width="112" height="16" rx="4" fill="var(--clothes-white)"/>
+        <rect x="722" y="336" width="116" height="16" rx="4" fill="var(--clothes-blue)"/>
+
+        <!-- Stack 2 (tall, far right) -->
+        <rect x="870" y="400" width="100" height="16" rx="4" fill="var(--clothes-light)"/>
+        <rect x="868" y="384" width="104" height="16" rx="4" fill="var(--clothes-blue)"/>
+        <rect x="866" y="368" width="108" height="16" rx="4" fill="var(--clothes-white)"/>
+        <rect x="864" y="352" width="112" height="16" rx="4" fill="var(--clothes-light)"/>
+        <rect x="862" y="336" width="116" height="16" rx="4" fill="var(--clothes-denim)"/>
+        <rect x="860" y="320" width="120" height="16" rx="4" fill="var(--clothes-blue)"/>
+        <rect x="858" y="304" width="124" height="16" rx="4" fill="var(--clothes-white)"/>
+      </g>
+
+      <!-- ===== RIGHT: Second basket ===== -->
+      <g>
+        <path d="M730 430 Q730 400, 760 400 L840 400 Q870 400, 870 430 L862 480 L738 480 Z" fill="var(--basket-body)" stroke="var(--basket-stripe)" stroke-width="2"/>
+        <line x1="735" y1="420" x2="865" y2="420" stroke="var(--basket-stripe)" stroke-width="1.5"/>
+        <line x1="736" y1="440" x2="864" y2="440" stroke="var(--basket-stripe)" stroke-width="1.5"/>
+        <line x1="737" y1="460" x2="863" y2="460" stroke="var(--basket-stripe)" stroke-width="1.5"/>
+        <!-- Overflowing towels -->
+        <path d="M750 404 Q770 380, 800 402 Q820 385, 850 404" fill="var(--clothes-white)" stroke="none"/>
+      </g>
+
+      <!-- ===== RIGHT: Plant ===== -->
+      <g>
+        <!-- Pot -->
+        <path d="M900 420 L910 480 L960 480 L970 420 Z" fill="var(--plant-pot)"/>
+        <rect x="895" y="414" width="80" height="10" rx="4" fill="var(--plant-pot)"/>
+        <!-- Leaves -->
+        <path d="M935 414 Q920 370, 940 340 Q945 370, 935 414" fill="var(--plant-green)"/>
+        <path d="M935 414 Q960 375, 970 350 Q955 380, 935 414" fill="var(--plant-green)" opacity="0.85"/>
+        <path d="M935 414 Q905 380, 900 355 Q910 385, 935 414" fill="var(--plant-green)" opacity="0.85"/>
+        <path d="M935 414 Q950 360, 965 330 Q948 365, 935 414" fill="var(--plant-green)" opacity="0.7"/>
+        <path d="M935 414 Q910 365, 895 340 Q915 370, 935 414" fill="var(--plant-green)" opacity="0.7"/>
+      </g>
+
+      <!-- ===== Detergent bottles ===== -->
+      <g>
+        <!-- Bottle 1 -->
+        <rect x="340" y="430" width="30" height="50" rx="4" fill="var(--clothes-blue)"/>
+        <rect x="348" y="420" width="14" height="14" rx="2" fill="var(--illustration-accent)"/>
+        <!-- Bottle 2 -->
+        <rect x="310" y="440" width="25" height="40" rx="4" fill="var(--illustration-primary)" stroke="var(--illustration-accent)" stroke-width="1.5"/>
+        <rect x="316" y="432" width="13" height="10" rx="2" fill="var(--heading)"/>
+      </g>
+    </svg>
+  </div>
+</div>
